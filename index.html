@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lot Size Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #6366f1, #3b82f6);
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .logo-container {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        
+        .logo {
+            max-width: 150px;
+            height: auto;
+            margin: 0 auto 10px;
+        }
+
+        h1 {
+            color: #3b82f6;
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #374151;
+            font-weight: 500;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #6366f1, #3b82f6);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        #result {
+            margin-top: 25px;
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #10b981;
+            animation: blink 1s infinite;
+            display: none;
+        }
+
+        .message {
+            text-align: center;
+            color: #ef4444;
+            margin-top: 15px;
+            font-weight: 500;
+            display: none;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 25px;
+            color: #6b7280;
+            font-size: 0.9rem;
+            padding-top: 15px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            #result {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo-container">
+            <img src="https://skillcentric.org/wp-content/uploads/2024/05/Skill-Center-1.png" 
+                 alt="Logo" 
+                 class="logo">
+        </div>
+        
+        <h1>Lot Size Calculator</h1>
+        
+        <div class="input-group">
+            <label>Account Size ($)</label>
+            <input type="number" id="accountSize" placeholder="Enter account balance">
+        </div>
+
+        <div class="input-group">
+            <label>Risk Percentage (%)</label>
+            <input type="number" id="riskPercent" placeholder="Enter risk percentage">
+        </div>
+
+        <div class="input-group">
+            <label>Stop Loss (Pips)</label>
+            <input type="number" id="stopLoss" placeholder="Enter stop loss">
+        </div>
+
+        <button onclick="calculateLotSize()">Calculate Lot Size</button>
+
+        <div class="message" id="message">You can take this trade! Good Luck</div>
+        <div id="result"></div>
+
+        <!-- Yahaan naya footer add kiya gaya hai -->
+        <div class="footer">
+            Prepared by Muhammad Ahmed Batch 34
+        </div>
+    </div>
+
+    <script>
+        function calculateLotSize() {
+            const accountSize = parseFloat(document.getElementById('accountSize').value);
+            const riskPercent = parseFloat(document.getElementById('riskPercent').value);
+            const stopLoss = parseFloat(document.getElementById('stopLoss').value);
+
+            if (!accountSize || !riskPercent || !stopLoss) {
+                alert('Please fill all fields');
+                return;
+            }
+
+            const riskAmount = (accountSize * riskPercent) / 100;
+            const lotSize = (riskAmount / (stopLoss * 10)).toFixed(2);
+
+            const resultElement = document.getElementById('result');
+            const messageElement = document.getElementById('message');
+
+            resultElement.textContent = `${lotSize} Lot`;
+            resultElement.style.display = 'block';
+            messageElement.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
