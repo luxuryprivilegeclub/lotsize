@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lot Size Calculator</title>
     <style>
+        /* Previous CSS remains unchanged */
         * {
             margin: 0;
             padding: 0;
@@ -89,8 +90,18 @@
             transform: scale(0.98);
         }
 
-        #result {
+        /* New risk amount style */
+        #riskAmount {
             margin-top: 25px;
+            text-align: center;
+            font-size: 1.5rem;
+            color: #3b82f6;
+            font-weight: bold;
+            display: none;
+        }
+
+        #result {
+            margin-top: 15px;
             text-align: center;
             font-size: 2.5rem;
             font-weight: bold;
@@ -131,6 +142,10 @@
                 font-size: 1.5rem;
             }
             
+            #riskAmount {
+                font-size: 1.2rem;
+            }
+            
             #result {
                 font-size: 2rem;
             }
@@ -164,10 +179,10 @@
 
         <button onclick="calculateLotSize()">Calculate Lot Size</button>
 
-        <div class="message" id="message">You can take this trade! Good Luck</div>
+        <div id="riskAmount"></div>
         <div id="result"></div>
+        <div class="message" id="message">You can take this trade! Good Luck</div>
 
-        <!-- Yahaan naya footer add kiya gaya hai -->
         <div class="footer">
             Prepared by Muhammad Ahmed Batch 34
         </div>
@@ -187,10 +202,14 @@
             const riskAmount = (accountSize * riskPercent) / 100;
             const lotSize = (riskAmount / (stopLoss * 10)).toFixed(2);
 
+            const riskAmountElement = document.getElementById('riskAmount');
             const resultElement = document.getElementById('result');
             const messageElement = document.getElementById('message');
 
+            riskAmountElement.textContent = `Risk Amount: $${riskAmount.toFixed(2)}`;
             resultElement.textContent = `${lotSize} Lot`;
+            
+            riskAmountElement.style.display = 'block';
             resultElement.style.display = 'block';
             messageElement.style.display = 'block';
         }
